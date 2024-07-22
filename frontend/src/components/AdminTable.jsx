@@ -1,15 +1,29 @@
 
-import { Table, Tag, Avatar,Space, FloatButton, Modal, } from "antd";
+import { Table, Tag, Avatar,Space, FloatButton, Modal,message } from "antd";
+
 import { EditOutlined, DeleteOutlined, PlusOutlined,LogoutOutlined} from "@ant-design/icons";
-import React, { useState } from "react";
-const AdminTable  = ()=>{
+import React, { useEffect, useState } from "react";
+import Add from "./Add";
+import { PrivateApi, PublicApi } from "../axiosInstance";
+import Edit from "./Edit";
+const AdminTable  = ({f})=>{
+  const [messageApi, contextHolder] = message.useMessage();
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isModalEditOpen, setIsModalEditOpen] = useState(false);
+  const [fun,setFun] = useState(true)
+  const [currEdit,setcurrEdit] = useState(0)
   const handleOk = () => {
     setIsModalOpen(false);
   };
   const handleCancel = () => {
     setIsModalOpen(false);
   };
+  const [records,setRecords] = useState([])
+  useEffect(()=>{
+    PublicApi.get('record/').then((res)=>{
+      setRecords(res.data)
+    })
+  },[isModalOpen,fun,isModalEditOpen])
     const columns = [
         {
             title: '#',
@@ -30,9 +44,9 @@ const AdminTable  = ()=>{
           },
           {
             title: 'Image',
-            dataIndex: 'image',
-            key: 'image',
-            render: (img) => <Avatar src="https://images.unsplash.com/photo-1576110397661-64a019d88a98?ixlib=rb-1.2.1&auto=format&fit=crop&w=1234&q=80" />,
+            dataIndex: 'img',
+            key: 'img',
+            render: (img) => <Avatar src={img} />,
           },
         {
           title: 'Name',
@@ -50,12 +64,33 @@ const AdminTable  = ()=>{
           key: 'quiz2',
         },
         {
+          title: 'Total (100%)',
+          dataIndex: 'total',
+          key: 'total',
+        },
+        {
           title: 'Action',
           key: 'action',
           render: (_, record) => (
             <Space size="middle" style={{'cursor':'pointer'}}>
-              <EditOutlined/>
-              <DeleteOutlined/>
+              <EditOutlined
+              onClick={()=>{
+                setcurrEdit(record.key)
+                setIsModalEditOpen(true)
+
+              }}
+              />
+              <DeleteOutlined 
+                onClick={()=>{
+                  PrivateApi.delete('record/'+record.key+'/').then((res)=>{
+                    if(res.status===204){messageApi.success('Record deleted successfully')
+                      setFun(!fun)
+                    }else{
+                      messageApi.error('Record not deleted')
+                    }
+                  })
+                }}
+              />
             </Space>
           ),
         },
@@ -74,14 +109,15 @@ const AdminTable  = ()=>{
       ];
     return(
       <>
-
-        <Table columns={columns} dataSource={data} />
+        {contextHolder}
+        <Table columns={columns} dataSource={records} />
         <FloatButton
-          icon={<PlusOutlined onclick={()=>{
+          icon={<PlusOutlined onClick={()=>{
             setIsModalOpen(!isModalOpen)
           }}/>}
           type="primary"
           style={{right:94}}
+          onClick={()=>setIsModalOpen(!isModalOpen)}
         />
         <FloatButton
           icon={<LogoutOutlined />}
@@ -96,10 +132,21 @@ const AdminTable  = ()=>{
           title="Add a reccord"
           open={isModalOpen}
           // onOk={}
+          onOk={handleOk}
           onCancel={()=>setIsModalOpen(false)}
           okText={'Add'}
         >
-          
+          <Add f={f}/>
+        </Modal>
+        <Modal
+          title="Edit a reccord"
+          open={isModalEditOpen}
+          // onOk={}
+          onOk={handleOk}
+          onCancel={()=>setIsModalEditOpen(false)}
+          okText={'Cancel'}
+        >
+          <Edit f={f} id={currEdit}/>
         </Modal>
       </>
     )

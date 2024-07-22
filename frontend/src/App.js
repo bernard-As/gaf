@@ -88,7 +88,7 @@ const App = () => {
             textAlign: 'center',
           }}
         >
-          GAF ©{new Date().getFullYear()} Created by 
+          GAF ©{new Date().getFullYear()} Powered by GAF Media group
         </Footer>
       </Layout>
     </Layout>
