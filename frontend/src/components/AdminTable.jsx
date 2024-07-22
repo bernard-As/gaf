@@ -92,7 +92,13 @@ const AdminTable  = ()=>{
             window.location.reload()
           }}
         />
-        <Modal>
+        <Modal
+          title="Add a reccord"
+          open={isModalOpen}
+          // onOk={}
+          onCancel={()=>setIsModalOpen(false)}
+          okText={'Add'}
+        >
           
         </Modal>
       </>
