@@ -3,7 +3,7 @@ import axios from 'axios';
 let token = localStorage.getItem('token')
 
 export const PublicApi = axios.create({
-  baseURL: 'http://35.209.121.39/api/',
+  baseURL: 'https://server4.lcfordevelopment.com/api/',
   headers: {
     'Content-Type': 'application/json',
   },
@@ -17,7 +17,7 @@ export const PublicApi2 = axios.create({
 });
 
 export const PrivateApi = axios.create({
-  baseURL: 'http://35.209.121.39/api/',
+  baseURL: 'https://server4.lcfordevelopment.com/api/',
   headers: {
     'Content-Type': 'application/json',
     Authorization: (`Token ${localStorage.getItem('token')}`),

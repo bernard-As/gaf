@@ -126,12 +126,12 @@ USE_TZ = True
 STATIC_URL = 'static/'
 CORS_ALLOWED_ORIGINS = [
     "http://localhost:3000",
-    "http://35.209.121.39",
+    "https://server4.lcfordevelopment.com",
     "https://bernard-as.github.io/"
 ]
 CORS_ALLOW_CREDENTIALS = True
 CSRF_TRUSTED_ORIGINS = [
-    'http://35.209.121.39',
+    'https://server4.lcfordevelopment.com',
     'https://bernard-as.github.io/'
 ]
 REST_FRAMEWORK = {

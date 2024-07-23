@@ -81,7 +81,7 @@ const Edit = ({f,id})=>{
     const handleChange = ({ file,fileList: newFileList }) => {
         if (file.status === 'done') {
             message.success(`${file.name} file uploaded successfully.`);
-            setFileLink('http://35.209.121.39/media/images/'+file.name);
+            setFileLink('https://server4.lcfordevelopment.com/media/images/'+file.name);
           } else if (file.status === 'error') {
             message.error(`${file.name} file upload failed.`);
           }
@@ -188,7 +188,7 @@ const Edit = ({f,id})=>{
           name="image"
           listType="picture"
           fileList={fileList}
-          action={'http://35.209.121.39/api/image/'}
+          action={'https://server4.lcfordevelopment.com/api/image/'}
         //   onChange={({ fileList }) => setFileList(fileList)}
           beforeUpload={beforeUpload} // Prevent automatic upload
           onPreview={handlePreview}
