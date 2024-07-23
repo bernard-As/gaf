@@ -81,7 +81,7 @@ const Edit = ({f,id})=>{
     const handleChange = ({ file,fileList: newFileList }) => {
         if (file.status === 'done') {
             message.success(`${file.name} file uploaded successfully.`);
-            setFileLink('http://localhost:8000/media/images/'+file.name);
+            setFileLink('http://35.209.121.39/media/images/'+file.name);
           } else if (file.status === 'error') {
             message.error(`${file.name} file upload failed.`);
           }
@@ -188,7 +188,7 @@ const Edit = ({f,id})=>{
           name="image"
           listType="picture"
           fileList={fileList}
-          action={'http://localhost:8000/api/image/'}
+          action={'http://35.209.121.39/api/image/'}
         //   onChange={({ fileList }) => setFileList(fileList)}
           beforeUpload={beforeUpload} // Prevent automatic upload
           onPreview={handlePreview}

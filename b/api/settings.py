@@ -126,7 +126,7 @@ USE_TZ = True
 STATIC_URL = 'static/'
 CORS_ALLOWED_ORIGINS = [
     "http://localhost:3000",
-    "http://localhost:8000",
+    "http://35.209.121.39",
     "http://35.209.121.39"
 ]
 CORS_ALLOW_CREDENTIALS = True
