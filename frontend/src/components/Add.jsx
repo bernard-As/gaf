@@ -43,8 +43,16 @@ const Add = ({f})=>{
         const file = values.image[0].originFileObj;
         const base64File = await convertToBase64(file);
     formData.append('name', values.name);
-    formData.append('quiz2', values.quiz2);
-    formData.append('quiz1', values.quiz1);
+    let quiz1 = +values.quiz1;
+    if (quiz1>100)quiz1=100;
+    else if(quiz1<0)quiz1=0;
+    quiz1 = Math.round(quiz1/2)
+    let quiz2 = +values.quiz2;
+    if (quiz2>100)quiz2=100;
+    else if(quiz2<0)quiz2=0;
+    quiz2 = Math.round(quiz2/2)
+    formData.append('quiz2', quiz2);
+    formData.append('quiz1', quiz1);
     if (values.image && values.image.length > 0) {
       formData.append('img',filelink);
       formData.append('img_name',values.image[0].name);

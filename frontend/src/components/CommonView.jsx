@@ -1,4 +1,4 @@
-import { Table, Tag, Avatar,Space, FloatButton, Modal,message } from "antd";
+import { Table, Tag, Avatar,Space, FloatButton, Modal,message, ConfigProvider } from "antd";
 import React, { useEffect, useState } from "react";
 import { PrivateApi, PublicApi } from "../axiosInstance";
 
@@ -19,7 +19,7 @@ useEffect(()=>{
             {
                 rank ===1?
                 <Tag color={'green'} key={rank}>
-                  1st
+                  1
                 </Tag>:
                 <Tag color={'blue'} key={rank}>{rank}</Tag>
 
@@ -57,7 +57,17 @@ useEffect(()=>{
       
     return(
         <>
-        <Table columns={columns} dataSource={records} /></>
+        <ConfigProvider
+          theme={{
+            components: {
+              Table: {
+                headerBg:'rgba(42, 131, 183, 0.856)'
+              },
+            },
+          }}
+        >
+        <Table columns={columns} dataSource={records} bordered/>
+        </ConfigProvider></>
     )
 }
 export default CommonView;

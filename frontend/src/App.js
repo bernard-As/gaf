@@ -58,7 +58,7 @@ const App = () => {
             background: colorBgContainer,
           }}
         >
-         <center> <h1>{
+         <center> <h1 style={{color:'gold'}}>{
           current === '2' ? 
           'GAF-Admin':
           'GAF-Pupils-Grades'

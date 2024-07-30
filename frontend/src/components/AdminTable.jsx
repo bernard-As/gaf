@@ -1,5 +1,5 @@
 
-import { Table, Tag, Avatar,Space, FloatButton, Modal,message } from "antd";
+import { Table, Tag, Avatar,Space, FloatButton, Modal,message, ConfigProvider } from "antd";
 
 import { EditOutlined, DeleteOutlined, PlusOutlined,LogoutOutlined} from "@ant-design/icons";
 import React, { useEffect, useState } from "react";
@@ -34,7 +34,7 @@ const AdminTable  = ({f})=>{
                 {
                     rank ===1?
                     <Tag color={'green'} key={rank}>
-                      1st
+                      1
                     </Tag>:
                     <Tag color={'blue'} key={rank}>{rank}</Tag>
 
@@ -110,7 +110,17 @@ const AdminTable  = ({f})=>{
     return(
       <>
         {contextHolder}
-        <Table columns={columns} dataSource={records} />
+        <ConfigProvider
+          theme={{
+            components: {
+              Table: {
+                headerBg:'rgba(42, 131, 183, 0.856)'
+              },
+            },
+          }}
+        >
+        <Table columns={columns} dataSource={records} bordered/>
+        </ConfigProvider>
         <FloatButton
           icon={<PlusOutlined onClick={()=>{
             setIsModalOpen(!isModalOpen)
